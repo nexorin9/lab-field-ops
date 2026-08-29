@@ -1,0 +1,7 @@
+{
+  "name": "dashboard",
+  "description": "DashboardPage 看板：仪器状态分布 + 队列重试 + write-back 红色告警 + 日报",
+  "browser_action": "打开 / 路由 → 等待 DashboardPage 渲染 → 截图",
+  "generated_with": "placeholder",
+  "generated_at": "2026-08-29T18:16:41.609Z"
+}

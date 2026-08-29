@@ -1,0 +1,7 @@
+{
+  "name": "splitview",
+  "description": "SplitView 三页同屏：仪器页 + 报警码页 + 校准页同框显示",
+  "browser_action": "⌘K 命中 → 选 split action → 三 pane 渲染 → 截图",
+  "generated_with": "placeholder",
+  "generated_at": "2026-08-29T18:16:41.609Z"
+}

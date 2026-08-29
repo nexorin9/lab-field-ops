@@ -1,0 +1,14 @@
+{
+  "name": "iot-heartbeat",
+  "version": "1.0.0",
+  "type": "task",
+  "hooks": [
+    {
+      "type": "task",
+      "queue_name": "iot-heartbeat"
+    }
+  ],
+  "queue_name": "iot-heartbeat",
+  "auth": null,
+  "rate_limit": 10
+}

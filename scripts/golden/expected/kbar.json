@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "scoreThreshold": 0.5,
+  "cases": [
+    {
+      "query": "ASSET-LAB-0142",
+      "description": "资产编码精确命中：仪器 + 该仪器最近校准，一次 ⌘K 两类对象同屏",
+      "expected": [
+        {
+          "kind": "Instrument",
+          "id": "ASSET-LAB-0142",
+          "section": "仪器",
+          "score": 1,
+          "matchedKey": "instrumentId:ASSET-LAB-0142",
+          "actionId": "fuzzy-Instrument-ASSET-LAB-0142",
+          "route": "/instruments/ASSET-LAB-0142"
+        },
+        {
+          "kind": "Calibration",
+          "id": "C20240117001",
+          "section": "校准",
+          "score": 1,
+          "matchedKey": "instrumentId:ASSET-LAB-0142",
+          "actionId": "fuzzy-Calibration-C20240117001",
+          "route": "/calibrations/C20240117001"
+        }
+      ]
+    },
+    {
+      "query": "W002",
+      "description": "报警码精确命中：仪器屏幕报什么码就搜什么码",
+      "expected": [
+        {
+          "kind": "AlarmCode",
+          "id": "Siemens|ADVIA 2400|W002",
+          "section": "报警码",
+          "score": 1,
+          "matchedKey": "alarmCode:W002",
+          "actionId": "fuzzy-AlarmCode-Siemens|ADVIA 2400|W002",
+          "route": "/alarm-codes/Siemens/ADVIA%202400/W002"
+        }
+      ]
+    },
+    {
+      "query": "西门子",
+      "description": "中文厂商口语 → DB 内英文 vendor 桥（业务人员不会打 Siemens）",
+      "expected": [
+        {
+          "kind": "AlarmCode",
+          "id": "Siemens|ADVIA 2400|W002",
+          "section": "报警码",
+          "score": 0.95,
+          "matchedKey": "vendor:siemens",
+          "actionId": "fuzzy-AlarmCode-Siemens|ADVIA 2400|W002",
+          "route": "/alarm-codes/Siemens/ADVIA%202400/W002"
+        },
+        {
+          "kind": "Instrument",
+          "id": "ASSET-LAB-0142",
+          "section": "仪器",
+          "score": 0.95,
+          "matchedKey": "vendor:siemens",
+          "actionId": "fuzzy-Instrument-ASSET-LAB-0142",
+          "route": "/instruments/ASSET-LAB-0142"
+        },
+        {
+          "kind": "ManualEntry",
+          "id": "MAN-ADVIA-2400",
+          "section": "手册",
+          "score": 0.95,
+          "matchedKey": "vendor:siemens",
+          "actionId": "fuzzy-ManualEntry-MAN-ADVIA-2400",
+          "route": null
+        }
+      ]
+    },
+    {
+      "query": "ADVIA 2400",
+      "description": "型号精确命中：三类对象（报警码 / 仪器 / 手册）同分，按类内优先级排序",
+      "expected": [
+        {
+          "kind": "AlarmCode",
+          "id": "Siemens|ADVIA 2400|W002",
+          "section": "报警码",
+          "score": 0.9,
+          "matchedKey": "model:advia 2400",
+          "actionId": "fuzzy-AlarmCode-Siemens|ADVIA 2400|W002",
+          "route": "/alarm-codes/Siemens/ADVIA%202400/W002"
+        },
+        {
+          "kind": "Instrument",
+          "id": "ASSET-LAB-0142",
+          "section": "仪器",
+          "score": 0.9,
+          "matchedKey": "model:advia 2400",
+          "actionId": "fuzzy-Instrument-ASSET-LAB-0142",
+          "route": "/instruments/ASSET-LAB-0142"
+        },
+        {
+          "kind": "ManualEntry",
+          "id": "MAN-ADVIA-2400",
+          "section": "手册",
+          "score": 0.9,
+          "matchedKey": "model:advia 2400",
+          "actionId": "fuzzy-ManualEntry-MAN-ADVIA-2400",
+          "route": null
+        }
+      ]
+    },
+    {
+      "query": "ADVIA2400",
+      "description": "漏打空格（编辑距离 1）仍命中同三类对象，只是降为模糊分",
+      "expected": [
+        {
+          "kind": "AlarmCode",
+          "id": "Siemens|ADVIA 2400|W002",
+          "section": "报警码",
+          "score": 0.6,
+          "matchedKey": "model~:advia 2400",
+          "actionId": "fuzzy-AlarmCode-Siemens|ADVIA 2400|W002",
+          "route": "/alarm-codes/Siemens/ADVIA%202400/W002"
+        },
+        {
+          "kind": "Instrument",
+          "id": "ASSET-LAB-0142",
+          "section": "仪器",
+          "score": 0.6,
+          "matchedKey": "model~:advia 2400",
+          "actionId": "fuzzy-Instrument-ASSET-LAB-0142",
+          "route": "/instruments/ASSET-LAB-0142"
+        },
+        {
+          "kind": "ManualEntry",
+          "id": "MAN-ADVIA-2400",
+          "section": "手册",
+          "score": 0.6,
+          "matchedKey": "model~:advia 2400",
+          "actionId": "fuzzy-ManualEntry-MAN-ADVIA-2400",
+          "route": null
+        }
+      ]
+    },
+    {
+      "query": "cobas c701",
+      "description": "另一台生化仪型号：只命中该机对应的报警码与仪器，不串到别的厂牌",
+      "expected": [
+        {
+          "kind": "AlarmCode",
+          "id": "Roche|cobas c701|E145",
+          "section": "报警码",
+          "score": 0.9,
+          "matchedKey": "model:cobas c701",
+          "actionId": "fuzzy-AlarmCode-Roche|cobas c701|E145",
+          "route": "/alarm-codes/Roche/cobas%20c701/E145"
+        },
+        {
+          "kind": "Instrument",
+          "id": "ASSET-LAB-0201",
+          "section": "仪器",
+          "score": 0.9,
+          "matchedKey": "model:cobas c701",
+          "actionId": "fuzzy-Instrument-ASSET-LAB-0201",
+          "route": "/instruments/ASSET-LAB-0201"
+        }
+      ]
+    },
+    {
+      "query": "lis-writeback",
+      "description": "插件名命中：信息科工程师用 ⌘K 直接跳到插件卡片",
+      "expected": [
+        {
+          "kind": "PluginCard",
+          "id": "lis-writeback",
+          "section": "插件",
+          "score": 0.6,
+          "matchedKey": "kw:lis-writeback",
+          "actionId": "fuzzy-PluginCard-lis-writeback",
+          "route": null
+        }
+      ]
+    },
+    {
+      "query": "不存在的东西xyz",
+      "description": "无命中：返回空列表，由 UI 兜底提示「未匹配，编辑查询」",
+      "expected": []
+    }
+  ]
+}

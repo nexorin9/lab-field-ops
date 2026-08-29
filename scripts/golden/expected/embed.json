@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "category": "vendor-ticket",
+      "input": "https://vendor.example.com/ticket/T-ABC123",
+      "expected": {
+        "descriptorName": "vendor-ticket",
+        "kind": "vendor-ticket",
+        "priority": 30,
+        "componentName": "VendorTicketCard",
+        "key": "T-ABC123",
+        "captured": {
+          "ticketId": "T-ABC123"
+        }
+      }
+    },
+    {
+      "category": "vendor-ticket",
+      "input": "https://svc.vendor.com/ticket/T-XY99/",
+      "expected": {
+        "descriptorName": "vendor-ticket",
+        "kind": "vendor-ticket",
+        "priority": 30,
+        "componentName": "VendorTicketCard",
+        "key": "T-XY99",
+        "captured": {
+          "ticketId": "T-XY99"
+        }
+      }
+    },
+    {
+      "category": "lis-report",
+      "input": "lis://reports/L20240117001",
+      "expected": {
+        "descriptorName": "lis-report",
+        "kind": "lis-report",
+        "priority": 40,
+        "componentName": "LisReportCard",
+        "key": "L20240117001",
+        "captured": {
+          "accessionNo": "L20240117001"
+        }
+      }
+    },
+    {
+      "category": "lis-report",
+      "input": "lis://reports/L99999999/",
+      "expected": {
+        "descriptorName": "lis-report",
+        "kind": "lis-report",
+        "priority": 40,
+        "componentName": "LisReportCard",
+        "key": "L99999999",
+        "captured": {
+          "accessionNo": "L99999999"
+        }
+      }
+    },
+    {
+      "category": "calibration-record",
+      "input": "cal://calibrations/C20240117001.json",
+      "expected": {
+        "descriptorName": "calibration-record",
+        "kind": "calibration-record",
+        "priority": 20,
+        "componentName": "CalibrationCard",
+        "key": "C20240117001",
+        "captured": {
+          "calibrationId": "C20240117001"
+        }
+      }
+    },
+    {
+      "category": "calibration-record",
+      "input": "cal://calibrations/C20240199.json",
+      "expected": {
+        "descriptorName": "calibration-record",
+        "kind": "calibration-record",
+        "priority": 20,
+        "componentName": "CalibrationCard",
+        "key": "C20240199",
+        "captured": {
+          "calibrationId": "C20240199"
+        }
+      }
+    },
+    {
+      "category": "instrument-manual",
+      "input": "https://docs.vendor.com/advia-2400-manual.pdf",
+      "expected": {
+        "descriptorName": "instrument-manual",
+        "kind": "instrument-manual",
+        "priority": 10,
+        "componentName": "ManualCard",
+        "key": "advia-2400-manual",
+        "captured": {
+          "path": "advia-2400-manual"
+        }
+      }
+    },
+    {
+      "category": "instrument-manual",
+      "input": "https://docs.vendor.com/cobas-8000-service.pdf",
+      "expected": {
+        "descriptorName": "instrument-manual",
+        "kind": "instrument-manual",
+        "priority": 10,
+        "componentName": "ManualCard",
+        "key": "cobas-8000-service",
+        "captured": {
+          "path": "cobas-8000-service"
+        }
+      }
+    }
+  ]
+}

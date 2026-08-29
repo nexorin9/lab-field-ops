@@ -1,0 +1,28 @@
+# .dockerignore — 排除构建无关文件，缩小 build context
+# 运行时数据/日志不进镜像（由 volume 挂载）
+node_modules/
+.git/
+.github/
+dist/
+build/
+coverage/
+data/
+logs/
+docs/screenshots/
+tests/
+scripts/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+*.tmp
+.env
+.env.local
+.vitest/
+.cache/
+.idea/
+.vscode/
+.DS_Store
+score.json
+discoveries.md

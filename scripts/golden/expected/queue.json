@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "note": "看板 /api/queue/status 与 /api/queue/:name/jobs 的字段锁 + 三条固定场景。字段命名漂移会让 DashboardPage 直接显示 undefined，故用 golden 锁住。",
+  "statusFields": [
+    "name",
+    "pending",
+    "running",
+    "success",
+    "failed",
+    "lastFailedAt",
+    "finalFailures",
+    "maxAttempts"
+  ],
+  "jobFields": [
+    "id",
+    "name",
+    "eventId",
+    "attempts",
+    "status",
+    "lastError",
+    "nextRunAt",
+    "createdAt",
+    "payloadPreview"
+  ],
+  "jobStatuses": ["pending", "running", "success", "failed"],
+  "backoff": {
+    "type": "exponential",
+    "base": 200,
+    "max": 30000,
+    "attempts": 5,
+    "delaysMs": [200, 400, 800, 1600, 3200]
+  },
+  "scenarios": [
+    {
+      "name": "handler 永久失败 → 5 次用尽 → 看板红条",
+      "queue": "golden-writeback",
+      "maxAttempts": 5,
+      "handler": "always-fail",
+      "runs": 5,
+      "expectedStatus": {
+        "pending": 0,
+        "running": 0,
+        "success": 0,
+        "failed": 1,
+        "finalFailures": 1,
+        "maxAttempts": 5,
+        "lastFailedAtPresent": true
+      },
+      "expectedJob": {
+        "attempts": 5,
+        "status": "failed",
+        "lastErrorContains": "golden simulated failure"
+      },
+      "expectedAuditKinds": [
+        "queue.enqueue",
+        "queue.fail",
+        "queue.final_fail"
+      ]
+    },
+    {
+      "name": "失败工单一键重投 → attempts 归零、回到 pending",
+      "queue": "golden-retry",
+      "maxAttempts": 1,
+      "handler": "always-fail",
+      "runs": 1,
+      "retry": true,
+      "expectedRetryResult": {
+        "attemptsReset": 0
+      },
+      "expectedJobAfterRetry": {
+        "attempts": 0,
+        "status": "pending",
+        "lastError": null
+      },
+      "expectedAuditKinds": ["queue.retry"]
+    },
+    {
+      "name": "handler 成功 → success=1，无失败记录、无红条",
+      "queue": "golden-heartbeat",
+      "maxAttempts": 5,
+      "handler": "always-ok",
+      "runs": 1,
+      "expectedStatus": {
+        "pending": 0,
+        "running": 0,
+        "success": 1,
+        "failed": 0,
+        "finalFailures": 0,
+        "maxAttempts": 5,
+        "lastFailedAtPresent": false
+      }
+    },
+    {
+      "name": "同 event_id 二次入队 → 跳过（网关重推不会重复处理）",
+      "queue": "golden-dedupe",
+      "maxAttempts": 5,
+      "handler": "always-ok",
+      "eventId": "golden-evt-dedupe",
+      "expectedSecondEnqueue": {
+        "id": "",
+        "skipped": true
+      }
+    }
+  ]
+}

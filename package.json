@@ -1,0 +1,49 @@
+{
+  "name": "lab-field-ops",
+  "version": "0.1.0",
+  "private": true,
+  "description": "检验业务现场作业系统：信息科注册 plugin / 队列监控，检验工程师 ⌘K + 资料台 + 看板",
+  "bin": {
+    "lab-field-ops": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed": "ts-node --transpile-only src/cli/seed.ts",
+    "plugin": "ts-node --transpile-only src/cli/index.ts plugin",
+    "start": "node dist/server/main.js",
+    "lint": "tsc --noEmit",
+    "screenshot": "ts-node --transpile-only scripts/screenshot.ts",
+    "golden": "GOLDEN_WRITE=1 vitest run tests/goldenRegen.test.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "commander": "^12.1.0",
+    "kbar": "^0.1.0-beta.45",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@types/styled-components": "^5.1.34",
+    "@vitejs/plugin-react": "^4.3.1",
+    "chokidar": "^4.0.1",
+    "jsdom": "^25.0.1",
+    "supertest": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

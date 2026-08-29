@@ -1,0 +1,7 @@
+{
+  "name": "kbar",
+  "description": "⌘K KBar 弹出：输入 \"Siemens/ADVIA 2400/W002\" → 三类对象命中 → 选定打开 SplitView",
+  "browser_action": "按 ⌘K (或 Ctrl+K) → 输入查询串 → 截图",
+  "generated_with": "placeholder",
+  "generated_at": "2026-08-29T18:16:41.609Z"
+}

@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+out/
+coverage/
+*.tsbuildinfo
+
+# Runtime data & logs
+data/
+logs/
+*.log
+*.pid
+
+# Cache directories
+.cache/
+.eslintcache
+.stylelintcache
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.vscode/
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test artifacts
+.vitest/
+.nyc_output/
+
+# Misc
+*.tmp
+*.temp
+*.bak
+
+# Round metadata (must NOT enter project subdir)
+score.json
+discoveries.md
+
+# IMPORTANT: keep qrcode.jpg in repo (used by README follow block)
+!qrcode.jpg

@@ -1,0 +1,14 @@
+{
+  "name": "lis-writeback",
+  "version": "1.0.0",
+  "type": "task",
+  "hooks": [
+    {
+      "type": "task",
+      "queue_name": "lis-writeback"
+    }
+  ],
+  "queue_name": "lis-writeback",
+  "auth": null,
+  "rate_limit": null
+}
